@@ -1,126 +1,111 @@
+"use client";
 import React, { useState } from "react";
-import { CiHome, CiFolderOn } from "react-icons/ci";
-import { FiTool } from "react-icons/fi";
-import { IoInformation } from "react-icons/io5";
 import Link from "next/link";
-import { Button } from "antd";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
-// Define the types for TabLink props
-interface TabLinkProps {
-  href: string;
-  icon: React.ReactNode;
-  label: string;
-}
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/project", label: "Projects" },
+];
 
 const Tabs = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header className="flex items-center justify-between px-2  text-white relative font-sen bg-darkBackground  ">
-      {/* Logo */}
-      <div className="relative w-16 h-16">
-        <Link href="/">
-          <Image
-            src="/logo2.png"
-            alt="Logo"
-            className="object-contain"
-            layout="fill"
-          />
+    <header className="sticky top-0 z-50 bg-darkBackground/80 backdrop-blur-md border-b border-white/10 font-sen">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 flex items-center justify-between h-16">
+        {/* Logo */}
+        <Link href="/" className="relative w-10 h-10 shrink-0">
+          <Image src="/logo2.png" alt="Logo" fill className="object-contain" />
         </Link>
-      </div>
 
-      {/* Desktop Navigation */}
-      <nav className="hidden lg:flex items-center space-x-6 sticky pt-6">
-        <TabLink href="/" icon={<CiHome size={24} />} label="Home" />
-        <TabLink
-          href="/about"
-          icon={<IoInformation size={24} />}
-          label="About"
-        />
-        {/* <TabLink href="/tools" icon={<FiTool size={24} />} label="Tools" /> */}
-        <TabLink
-          href="/project"
-          icon={<CiFolderOn size={24} />}
-          label="Project"
-        />
-      </nav>
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-8">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`text-sm font-semibold transition-colors ${
+                pathname === href
+                  ? "text-white"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </nav>
 
-      {/* Blog Button */}
-      <div className="hidden lg:block">
-        <Button
-          href="https://medium.com/@ajitenadavid"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="!bg-darkBackground text-white font-sen"
-        >
-          Blog
-        </Button>
-      </div>
+        <div className="hidden md:flex items-center gap-5">
+          <Link
+            href="https://medium.com/@ajitenadavid"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/#contact"
+            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold rounded-full transition-colors"
+          >
+            Hire Me
+          </Link>
+        </div>
 
-      {/* Hamburger Menu */}
-      <div className="lg:hidden flex items-center">
+        {/* Hamburger */}
         <button
-          className="text-white"
+          className="md:hidden text-white p-1"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
+          aria-label="Toggle menu"
         >
           {isMenuOpen ? (
-            <AiOutlineClose size={24} />
+            <AiOutlineClose size={22} />
           ) : (
-            <AiOutlineMenu size={24} />
+            <AiOutlineMenu size={22} />
           )}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-darkBackground text-white z-50 flex flex-col items-center space-y-4 py-6">
-          <TabLinkMobile href="/" icon={<CiHome size={24} />} label="Home" />
-          <TabLinkMobile
-            href="/about"
-            icon={<IoInformation size={24} />}
-            label="About"
-          />
-          <TabLinkMobile
-            href="/tools"
-            icon={<FiTool size={24} />}
-            label="Tools"
-          />
-          <TabLinkMobile
-            href="/project"
-            icon={<CiFolderOn size={24} />}
-            label="Project"
-          />
-          <Button className="mt-4 w-3/4">Blog</Button>
+        <div className="md:hidden border-t border-white/10 px-6 py-6 flex flex-col gap-4 bg-darkBackground">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              onClick={() => setIsMenuOpen(false)}
+              className={`text-base font-semibold py-1 transition-colors ${
+                pathname === href ? "text-white" : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link
+            href="https://medium.com/@ajitenadavid"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setIsMenuOpen(false)}
+            className="text-base font-semibold py-1 text-gray-400 hover:text-white transition-colors"
+          >
+            Blog
+          </Link>
+          <Link
+            href="/#contact"
+            onClick={() => setIsMenuOpen(false)}
+            className="mt-2 px-4 py-3 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold rounded-full text-center transition-colors"
+          >
+            Hire Me
+          </Link>
         </div>
       )}
     </header>
   );
 };
-
-const TabLink: React.FC<TabLinkProps> = ({ href, icon, label }) => (
-  <div className="group flex flex-col items-center cursor-pointer">
-    <Link href={href} className="flex flex-col items-center">
-      <div className="text-white group-hover:text-blue-500 transition-all">
-        {icon}
-      </div>
-      <span className="text-white items-center flex text-xs  opacity-0 group-hover:opacity-100 group-hover:translate-y-2 transition-all bg-slate-400 rounded-md p-1">
-        {label}
-      </span>
-    </Link>
-  </div>
-);
-
-const TabLinkMobile: React.FC<TabLinkProps> = ({ href, icon, label }) => (
-  <Link
-    href={href}
-    className="flex items-center space-x-3 px-4 py-2 w-full hover:bg-gray-700 rounded transition-all"
-  >
-    <div>{icon}</div>
-    <span>{label}</span>
-  </Link>
-);
 
 export default Tabs;
