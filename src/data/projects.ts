@@ -44,39 +44,10 @@ export const projects: Project[] = [
     links: {},
     image: "/langeasy3.png",
   },
-
-  {
-    name: "JamaJama",
-    description:
-      "JamaJama is an artisan services marketplace connecting users to certified professionals — electricians, plumbers, tailors, welders, bakers, carpenters and more. The platform makes hiring skilled tradespeople fast, easy, and free.",
-    techStack: ["React", "TypeScript", "Tailwind CSS"],
-    links: { website: "https://www.jamajama.com/" },
-    image: "/jamajama.png",
-  },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   {
     name: "Ifelodun LCDA",
     description: "Official website of Ifelodun Local Council Development Authority, providing residents with access to council news, announcements, and civic information in a clean, content-managed platform powered by Contentful.",
-    techStack: [
-      "Next.js",
-      "Tailwind CSS",
-      "Contentful",
-      "TypeScript",
-      "Tanstack Query",
-    ],
+    techStack: ["Next.js", "Tailwind CSS", "Contentful", "TypeScript", "Tanstack Query"],
     links: { website: "https://www.ifelodunlcda.com/" },
     image: "/ifelodun.png",
   },
@@ -86,14 +57,6 @@ export const projects: Project[] = [
     techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Tanstack Query"],
     links: { website: "https://tolp.vercel.app/" },
     image: "/tolp.png",
-  },
-  {
-    name: "JamaJama",
-    description:
-      "JamaJama is an artisan services marketplace connecting users to certified professionals — electricians, plumbers, tailors, welders, bakers, carpenters and more. The platform makes hiring skilled tradespeople fast, easy, and free.",
-    techStack: ["React", "TypeScript", "Tailwind CSS"],
-    links: { website: "https://www.jamajama.com/" },
-    image: "/jamajama.png",
   },
   {
     name: "MEDNOVA",
